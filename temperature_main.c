@@ -1,7 +1,7 @@
 #include "temperature.h"
 #include <stdio.h>
 
-/* Function to display the menu and get user choice */
+/* USER CHOICE - stdio for printf */
 char get_scale_choice() {
     char scale;
     printf("Select the temperature scale (C for Celsius, F for Fahrenheit, K for Kelvin): ");
@@ -9,22 +9,22 @@ char get_scale_choice() {
     return scale;
 }
 
-int main() {
+int main() { /* main func*/
     float temp_input, temp_converted;
     char input_scale, target_scale;
 
     while (1) {
-        /* Get the input temperature */
+        /* Get  input temperature */
         printf("\nEnter the temperature value (or -999 to exit): ");
         scanf("%f", &temp_input);
 
-        /* Exit condition */
+        /* Exit  */
         if (temp_input == -999) {
             printf("Exiting program.\n");
             break;
         }
 
-        /* Get valid input scale */
+        /* Get  input scale */
         input_scale = get_scale_choice();
         while (input_scale != 'C' && input_scale != 'F' && input_scale != 'K') {
             printf("Invalid choice. Please enter C, F, or K.\n");
@@ -64,7 +64,7 @@ int main() {
             continue;
         }
 
-        /* Display the result */
+        /* Display  */
         printf("Converted Temperature: %.2f %c\n", temp_converted, target_scale);
 
         /* Categorize the temperature (using Celsius as reference) */
