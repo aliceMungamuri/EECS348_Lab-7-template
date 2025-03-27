@@ -1,37 +1,40 @@
-# Compiler settings
-CC := gcc
-CFLAGS := -Wall
+# Makefile for Temperature Conversion Program
 
-# Executable names
-FOOTBALL_TARGET := football.exe
-TEMPERATURE_TARGET := temperature.exe
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall -g
+
+# Output executable name
+TARGET = temperature_program
 
 # Source files
-FOOTBALL_SRCS := football.c football_main.c temperature.c  # Added temperature.c
-TEMPERATURE_SRCS := temperature.c temperature_main.c
+SRCS = temperature.c temperature_main.c
 
-# Object files
-FOOTBALL_OBJS := $(FOOTBALL_SRCS:.c=.o)
-TEMPERATURE_OBJS := $(TEMPERATURE_SRCS:.c=.o)
+# Header files
+HEADERS = temperature.h
 
-# Default target (build both programs)
-all: $(FOOTBALL_TARGET) $(TEMPERATURE_TARGET)
+# Object files (compiled source files)
+OBJS = $(SRCS:.c=.o)
 
-# Build football.exe (Now includes temperature.c)
-$(FOOTBALL_TARGET): $(FOOTBALL_OBJS)
-	$(CC) $(CFLAGS) $(FOOTBALL_OBJS) -o $(FOOTBALL_TARGET)
+# Default target to build the program
+all: $(TARGET)
 
-# Build temperature.exe
-$(TEMPERATURE_TARGET): $(TEMPERATURE_OBJS)
-	$(CC) $(CFLAGS) $(TEMPERATURE_OBJS) -o $(TEMPERATURE_TARGET)
+# Rule to link the object files and create the executable
+$(TARGET): $(OBJS)
+	$(CC) $(OBJS) -o $(TARGET)
 
-# Rule to compile .c files into .o files
-%.o: %.c
+# Rule to compile the source files into object files
+%.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Clean up object files and executables
+# Rule to clean up compiled files
 clean:
-	rm -f $(FOOTBALL_OBJS) $(FOOTBALL_TARGET) $(TEMPERATURE_OBJS) $(TEMPERATURE_TARGET)
+	rm -f $(OBJS) $(TARGET)
 
-# Rebuild everything (clean and then build again)
-re: clean all
+# Rule to remove the executable and object files
+fclean: clean
+	rm -f $(TARGET)
+
+# Rule to recompile everything
+re: fclean all
+
