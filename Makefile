@@ -1,10 +1,10 @@
-# Compiler
+# Compiler - whole lotta chatgpt - I needed this explained line by line
 CC := gcc
 
 # Flags for the compiler (you can add other flags like -g for debugging)
 CFLAGS := -Wall
 
-# Target executables
+# the target executables
 FOOTBALL_TARGET := football.exe
 TEMPERATURE_TARGET := temperature.exe
 
@@ -16,7 +16,7 @@ TEMPERATURE_SRCS := temperature.c temperature_main.c
 FOOTBALL_OBJS := $(FOOTBALL_SRCS:.c=.o)
 TEMPERATURE_OBJS := $(TEMPERATURE_SRCS:.c=.o)
 
-# Default target
+# this is the default target
 all: $(FOOTBALL_TARGET) $(TEMPERATURE_TARGET)
 
 # Build football.exe
