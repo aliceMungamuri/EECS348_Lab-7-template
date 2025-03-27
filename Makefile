@@ -1,25 +1,23 @@
-# Compiler - whole lotta chatgpt - I needed this explained line by line
+# Compiler settings
 CC := gcc
-
-# Flags for the compiler (you can add other flags like -g for debugging)
 CFLAGS := -Wall
 
-# the target executables
+# Executable names
 FOOTBALL_TARGET := football.exe
 TEMPERATURE_TARGET := temperature.exe
 
 # Source files
-FOOTBALL_SRCS := football.c football_main.c
+FOOTBALL_SRCS := football.c football_main.c temperature.c  # Added temperature.c
 TEMPERATURE_SRCS := temperature.c temperature_main.c
 
 # Object files
 FOOTBALL_OBJS := $(FOOTBALL_SRCS:.c=.o)
 TEMPERATURE_OBJS := $(TEMPERATURE_SRCS:.c=.o)
 
-# this is the default target
+# Default target (build both programs)
 all: $(FOOTBALL_TARGET) $(TEMPERATURE_TARGET)
 
-# Build football.exe
+# Build football.exe (Now includes temperature.c)
 $(FOOTBALL_TARGET): $(FOOTBALL_OBJS)
 	$(CC) $(CFLAGS) $(FOOTBALL_OBJS) -o $(FOOTBALL_TARGET)
 
@@ -27,7 +25,7 @@ $(FOOTBALL_TARGET): $(FOOTBALL_OBJS)
 $(TEMPERATURE_TARGET): $(TEMPERATURE_OBJS)
 	$(CC) $(CFLAGS) $(TEMPERATURE_OBJS) -o $(TEMPERATURE_TARGET)
 
-# Rule for compiling .c files into .o object files
+# Rule to compile .c files into .o files
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
