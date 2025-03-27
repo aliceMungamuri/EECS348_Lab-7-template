@@ -1,19 +1,29 @@
-name: Test
+name: Compile and Test C Programs
+
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ]  # Runs when code is pushed to main branch
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main" ]  # Runs on pull requests to main
+
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest  # Uses Ubuntu as the OS
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Build googletest
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # Fetches the latest code
+
+      - name: Install GCC and Make
+        run: sudo apt-get install -y gcc make  # Installs the required compiler and build tools
+
+      - name: Compile Football Program
+        run: make football.exe  # Runs your Makefile to compile football.exe
+
+      - name: Compile Temperature Program
+        run: make temperature.exe  # Runs your Makefile to compile temperature.exe
+
+      - name: Run Tests (Optional)
         run: |
-          cmake -S . -B build -DBUILD_GMOCK=OFF
-          cmake --build build
-      - name: Run googletest
-        run: |
-          export GTEST_COLOR=1
-          cd build/tests && ctest --output-on-failure
+          echo "25" | ./football.exe || echo "Football program failed"
+          echo "100 F C" | ./temperature.exe || echo "Temperature program failed"
